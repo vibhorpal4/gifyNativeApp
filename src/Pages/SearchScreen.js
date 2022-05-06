@@ -13,7 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../assets/colors';
 import {useGetGifsQuery} from '../redux/services/api';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import GifGrid from '../assets/Components/GifGrid';
+import GifGrid from '../Components/GifGrid';
 
 const {height, width} = Dimensions.get('window');
 

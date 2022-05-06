@@ -13,9 +13,9 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../assets/colors';
 import Feather from 'react-native-vector-icons/Feather';
-import CategorySlider from '../assets/Components/CategorySlider';
+import CategorySlider from '../Components/CategorySlider';
 import {useGetGifsQuery} from '../redux/services/api';
-import GifGrid from '../assets/Components/GifGrid';
+import GifGrid from '../Components/GifGrid';
 import {skipToken} from '@reduxjs/toolkit/dist/query';
 
 const {height, width} = Dimensions.get('window');
