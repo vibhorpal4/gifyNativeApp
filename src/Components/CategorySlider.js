@@ -1,10 +1,19 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, StyleSheet, Dimensions, Text, FlatList} from 'react-native';
-import colors from '../assets/colors';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  FlatList,
+  Pressable,
+} from 'react-native';
+import colors from '../colors';
 
 const {height, width} = Dimensions.get('window');
 
 const CategorySlider = () => {
+  const navigation = useNavigation();
   const data = [
     {
       id: 1,
@@ -41,9 +50,16 @@ const CategorySlider = () => {
   ];
 
   const rendererComponent = ({item}) => (
-    <View style={styles.itemWrapper}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate('SearchStack', {
+          screen: 'Search',
+          params: {search: item.name},
+        })
+      }
+      style={styles.itemWrapper}>
       <Text style={styles.itemText}>{item.name}</Text>
-    </View>
+    </Pressable>
   );
 
   return (

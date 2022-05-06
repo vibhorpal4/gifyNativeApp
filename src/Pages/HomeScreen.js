@@ -7,26 +7,36 @@ import {
   ScrollView,
   RefreshControl,
   Image,
+  Button,
+  ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../assets/colors';
 import Feather from 'react-native-vector-icons/Feather';
-import CategorySlider from '../Components/CategorySlider';
-import {useGetTrandingQuery} from '../redux/services/api';
-import GifGrid from '../Components/GifGrid';
+import CategorySlider from '../assets/Components/CategorySlider';
+import {useGetGifsQuery} from '../redux/services/api';
+import GifGrid from '../assets/Components/GifGrid';
 import {skipToken} from '@reduxjs/toolkit/dist/query';
 
 const {height, width} = Dimensions.get('window');
 
 const HomeScreen = () => {
   const [offSet, setOffSet] = useState(0);
-  const {data, isLoading, error, refetch} = useGetTrandingQuery(
-    offSet ?? skipToken,
-  );
+  const {data, isLoading, error, refetch} = useGetGifsQuery({
+    offSet: offSet ?? skipToken,
+    query: 'popular',
+  });
 
-  if (data) {
-    console.log(data.data);
-  }
+  // const [gifs, setGifs] = useState(data?.data);
+
+  // if (data) {
+  //   console.log(data.data.length);
+  //   console.log(offSet);
+  // }
+
+  const loadPagination = () => {
+    setOffSet(offSet + 25);
+  };
 
   const Header = () => {
     return (
@@ -43,7 +53,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <SafeAreaView>
         <Header />
       </SafeAreaView>
@@ -57,9 +67,20 @@ const HomeScreen = () => {
 
       <Text style={styles.trendingHeading}>Trending Gifs</Text>
       {/* <ScrollView> */}
-      {isLoading ? <Text>Loading...</Text> : <GifGrid gifs={data.data} />}
+      {isLoading ? (
+        <ActivityIndicator size="large" color={colors.primaryColor} />
+      ) : (
+        <>
+          <GifGrid
+            gifs={data.data}
+            refetch={refetch}
+            isLoading={isLoading}
+            loadData={loadPagination}
+          />
+        </>
+      )}
       {/* </ScrollView> */}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -68,6 +89,7 @@ const styles = StyleSheet.create({
     width,
     height,
     backgroundColor: colors.backgroundColor,
+    marginBottom: 50,
   },
 
   headerContainer: {

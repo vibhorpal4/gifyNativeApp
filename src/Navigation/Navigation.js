@@ -5,7 +5,7 @@ import {View, Dimensions} from 'react-native';
 import AccountScreen from '../Pages/AccountScreen';
 import GifScreen from '../Pages/GifScreen';
 import HomeScreen from '../Pages/HomeScreen';
-import SearchResultScreen from '../Pages/SearchResultScreen';
+// import SearchResultScreen from '../Pages/SearchResultScreen';
 import SearchScreen from '../Pages/SearchScreen';
 import Octicons from 'react-native-vector-icons/Octicons';
 import colors from '../assets/colors';
@@ -31,15 +31,18 @@ export const HomeStack = () => {
   );
 };
 
-
 //defining the SearchStack Component
 export const SearchStack = () => {
   return (
     <Search_Stack.Navigator
       initialRouteName="Search"
       screenOptions={{headerShown: false}}>
-      <Search_Stack.Screen name="Search" component={SearchScreen} />
-      <Search_Stack.Screen name="SearchResult" component={SearchResultScreen} />
+      <Search_Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        // initialParams={{search: ''}}
+      />
+      {/* <Search_Stack.Screen name="SearchResult" component={SearchResultScreen} /> */}
       <Search_Stack.Screen name="Gif" component={GifScreen} />
     </Search_Stack.Navigator>
   );

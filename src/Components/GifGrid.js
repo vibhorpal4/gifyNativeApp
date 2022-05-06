@@ -1,7 +1,15 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
+import colors from '../colors';
 
-const GifGrid = ({gifs = []}) => {
+const GifGrid = ({gifs = [], isLoading, refetch, loadData}) => {
   const data = [
     {
       id: 1,
@@ -109,11 +117,30 @@ const GifGrid = ({gifs = []}) => {
     },
   ];
 
+  const rendererComponent = ({item}) => (
+    <Image source={{uri: item.images.original.url}} style={styles.gif} />
+  );
+
+  const renderLoader = () => (
+    <View>
+      <ActivityIndicator size="large" color={colors.primaryColor} />
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      {gifs.map(gif => (
-        <Image source={{uri: gif.images.original.url}} style={styles.gif} />
-      ))}
+      <FlatList
+        data={gifs}
+        renderItem={rendererComponent}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        onRefresh={refetch}
+        refreshing={isLoading}
+        onEndReached={loadData}
+        ListFooterComponent={renderLoader}
+        // onEndReachedThreshold={0}
+      />
     </View>
   );
 };

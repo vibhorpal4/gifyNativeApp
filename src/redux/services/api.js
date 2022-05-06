@@ -8,13 +8,14 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
   }),
-  tagTypes: ['Trending, Search'],
+  tagTypes: ['Trending', 'Search'],
   endpoints: builder => ({
-    getTranding: builder.query({
-      query: offset =>
-        `/trending?api_key=${key}&offset${offset}=&limit=30&rating=g`,
+    getGifs: builder.query({
+      query: ({offset, query}) =>
+        `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=${query}&limit=25&offset=${offset}&rating=g&lang=en`,
+      providesTags: ['Search'],
     }),
   }),
 });
 
-export const {useGetTrandingQuery} = api;
+export const {useGetGifsQuery} = api;
