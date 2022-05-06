@@ -8,7 +8,7 @@ import {
   FlatList,
   Pressable,
 } from 'react-native';
-import colors from '../colors';
+import colors from '../assets/colors';
 
 const {height, width} = Dimensions.get('window');
 

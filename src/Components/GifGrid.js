@@ -7,7 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import colors from '../colors';
+import colors from '../assets/colors';
 
 const GifGrid = ({gifs = [], isLoading, refetch, loadData}) => {
   const data = [
